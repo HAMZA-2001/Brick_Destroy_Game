@@ -40,9 +40,9 @@ public class Wall {
     private Random rnd;
     private Rectangle area;
 
-    Brick[] bricks;
+    private Brick[] bricks;
     private Ball ball;
-    Player player;
+    private Player player;
 
     private Brick[][] levels;
     private int level;
@@ -75,7 +75,7 @@ public class Wall {
 
         getBall().setSpeed(speedX,speedY);
 
-        player = new Player((Point) ballPos.clone(),150,10, drawArea);
+        setPlayer(new Player((Point) ballPos.clone(),150,10, drawArea));
 
         area = drawArea;
 
@@ -181,12 +181,12 @@ public class Wall {
     }
 
     public void move(){
-        player.move();
+        getPlayer().move();
         getBall().move();
     }
 
     public void findImpacts(){
-        if(player.impact(getBall())){
+        if(getPlayer().impact(getBall())){
             ball.reverseY();
         }
         else if(impactWall()){
@@ -208,7 +208,7 @@ public class Wall {
     }
 
     private boolean impactWall(){
-        for(Brick b : bricks){
+        for(Brick b : getBricks()){
             switch(b.findImpact(getBall())) {
                 //Vertical Impact
                 case Brick.UP_IMPACT:
@@ -248,7 +248,7 @@ public class Wall {
     }
 
     public void ballReset(){
-        player.moveTo(startPoint);
+        getPlayer().moveTo(startPoint);
         ball.moveTo(startPoint);
         int speedX,speedY;
         do{
@@ -263,9 +263,9 @@ public class Wall {
     }
 
     public void wallReset(){
-        for(Brick b : bricks)
+        for(Brick b : getBricks())
             b.repair();
-        brickCount = bricks.length;
+        brickCount = getBricks().length;
         ballCount = 3;
     }
 
@@ -278,8 +278,8 @@ public class Wall {
     }
 
     public void nextLevel(){
-        bricks = levels[level++];
-        this.brickCount = bricks.length;
+        setBricks(levels[level++]);
+        this.brickCount = getBricks().length;
     }
 
     public boolean hasLevel(){
@@ -328,6 +328,34 @@ public class Wall {
 	 */
 	public void setBall(Ball ball) {
 		this.ball = ball;
+	}
+
+	/**
+	 * @return the bricks
+	 */
+	public Brick[] getBricks() {
+		return bricks;
+	}
+
+	/**
+	 * @param bricks the bricks to set
+	 */
+	public void setBricks(Brick[] bricks) {
+		this.bricks = bricks;
+	}
+
+	/**
+	 * @return the player
+	 */
+	public Player getPlayer() {
+		return player;
+	}
+
+	/**
+	 * @param player the player to set
+	 */
+	public void setPlayer(Player player) {
+		this.player = player;
 	}
 
 }

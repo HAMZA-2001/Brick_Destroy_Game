@@ -20,8 +20,8 @@ package com.BrickBreaker.Debug;
 import javax.swing.*;
 
 import com.BrickBreaker.Balls.Ball;
-import com.BrickBreaker.Entities.GameBoard;
 import com.BrickBreaker.Entities.Wall;
+import com.BrickBreaker.Frames.GameBoard;
 
 import java.awt.*;
 import java.awt.event.WindowEvent;

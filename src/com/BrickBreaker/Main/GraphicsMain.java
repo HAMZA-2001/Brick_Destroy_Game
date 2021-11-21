@@ -19,6 +19,8 @@ package com.BrickBreaker.Main;
 
 import java.awt.*;
 
+import com.BrickBreaker.Frames.GameFrame;
+
 
 public class GraphicsMain {
 
