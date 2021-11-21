@@ -42,7 +42,7 @@ public class Wall {
 
     private Brick[] bricks;
     private Ball ball;
-    private Player player;
+    Player player;
 
     private Brick[][] levels;
     private int level;
@@ -75,7 +75,7 @@ public class Wall {
 
         getBall().setSpeed(speedX,speedY);
 
-        setPlayer(new Player((Point) ballPos.clone(),150,10, drawArea));
+        player = new Player((Point) ballPos.clone(),150,10, drawArea);
 
         area = drawArea;
 
@@ -181,12 +181,12 @@ public class Wall {
     }
 
     public void move(){
-        getPlayer().move();
+        player.move();
         getBall().move();
     }
 
     public void findImpacts(){
-        if(getPlayer().impact(getBall())){
+        if(player.impact(getBall())){
             ball.reverseY();
         }
         else if(impactWall()){
@@ -248,7 +248,7 @@ public class Wall {
     }
 
     public void ballReset(){
-        getPlayer().moveTo(startPoint);
+        player.moveTo(startPoint);
         ball.moveTo(startPoint);
         int speedX,speedY;
         do{
@@ -344,18 +344,9 @@ public class Wall {
 		this.bricks = bricks;
 	}
 
-	/**
-	 * @return the player
-	 */
 	public Player getPlayer() {
+		// TODO Auto-generated method stub
 		return player;
-	}
-
-	/**
-	 * @param player the player to set
-	 */
-	public void setPlayer(Player player) {
-		this.player = player;
 	}
 
 }
