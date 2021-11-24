@@ -3,8 +3,6 @@ package com.BrickBreaker.Bricks;
 import java.awt.*;
 import java.awt.Point;
 
-
-
 /**
  * Created by filippo on 04/09/16.
  *

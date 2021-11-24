@@ -25,9 +25,9 @@ abstract public class Brick  {
     public static final int RIGHT_IMPACT = 400;
 
 
-
+// makes a crack upon ball intersection with the brick
     public class Crack{
-
+    	
         private static final int CRACK_SECTIONS = 3;
         private static final double JUMP_PROBABILITY = 0.7;
 
