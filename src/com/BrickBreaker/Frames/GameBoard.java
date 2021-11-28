@@ -28,6 +28,12 @@ import com.BrickBreaker.Entities.Wall;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.font.FontRenderContext;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 
 
 
@@ -62,6 +68,8 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     private int strLen;
 
     private DebugConsole debugConsole;
+    
+    private String highScore = "";
 
 
     public GameBoard(JFrame owner){
@@ -86,11 +94,19 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         gameTimer = new Timer(10,e ->{
             wall.move();
             wall.findImpacts();
-            message = String.format("Bricks: %d Balls %d",wall.getBrickCount(),wall.getBallCount());
+            
+            if(highScore.equals("")) {
+            	highScore = GetHighScore();
+            }
+            
+            message = String.format("Bricks: %d Balls %d Score: %d HighScore: %s",wall.getBrickCount(),wall.getBallCount(),wall.getScore(), highScore);
             if(wall.isBallLost()){
                 if(wall.ballEnd()){
                     wall.wallReset();
+                    CheckScore(wall.getScore());
+                    wall.setScore(0);
                     message = "Game over";
+                    
                 }
                 wall.ballReset();
                 gameTimer.stop();
@@ -124,7 +140,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         this.addMouseListener(this);
         this.addMouseMotionListener(this);
     }
-
+    
 
     public void paint(Graphics g){
 
@@ -269,6 +285,73 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         g2d.setFont(tmpFont);
         g2d.setColor(tmpColor);
     }
+    //Added
+    public String GetHighScore() {
+    	FileReader readFile = null;
+    	BufferedReader reader = null;
+    	try {
+    		readFile = new FileReader("highscore.dat");
+
+    		
+    		reader = new BufferedReader(readFile);
+    		return reader.readLine();
+    	}
+    	catch(Exception e) {
+    		return "Nobody:0";
+    	}
+    	finally {
+    		try {
+    			if(reader != null)
+    			reader.close();
+    		}catch(IOException e){
+    			e.printStackTrace();
+    		}
+    	}
+    	
+    }
+    
+    public void CheckScore(int gamescore) {
+    	
+    	if (gamescore > Integer.parseInt((highScore.split(":")[1]))) {
+    	
+    		//user sets a new record
+    		String name =  JOptionPane.showInputDialog("You have set a new highscore. What is your name?");
+    		//String name =  JOptionPane.showInputDialog("You have set a new highscore. What is your name?");
+    		this.highScore = name + ":" + gamescore;
+    		
+    		File scoreFile = new File("highscore.dat");
+    		//System.out.println(scoreFile.getAbsolutePath());
+    		if(!scoreFile.exists()) {
+    			try {
+					scoreFile.createNewFile();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+    		}
+    		FileWriter writeFile = null;
+    		BufferedWriter writer = null;
+    		try 
+    		{
+    			writeFile = new FileWriter(scoreFile);
+    			writer = new BufferedWriter(writeFile); // Changes file into writable file
+    			writer.write(highScore); // writes highest score into  the file
+    		}
+    		catch(Exception e) {
+    			//errors
+    		}
+    		finally {
+    			try {
+    				if(writer != null)
+        				writer.close();
+    			}
+    			catch (Exception e) {}
+    			
+    		}
+    		
+    	}
+    }
+
 
     @Override
     public void keyTyped(KeyEvent keyEvent) {

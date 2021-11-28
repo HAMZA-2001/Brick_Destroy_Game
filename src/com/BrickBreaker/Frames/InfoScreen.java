@@ -44,6 +44,7 @@ public class InfoScreen extends JFrame {
 		btnNewButton.setForeground(SystemColor.text);
 		btnNewButton.setBackground(new Color(128, 0, 0));
 		btnNewButton.setFont(new Font("SansSerif", Font.BOLD, 15));
+		btnNewButton.setFocusable(false);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				enableHomeBoard();

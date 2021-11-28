@@ -52,6 +52,10 @@ public class Wall {
     private int brickCount;
     private int ballCount;
     private boolean ballLost;
+    
+    //Added
+    private String brickName;
+    private int score;
 
     public Wall(Rectangle drawArea, int brickCount, int lineCount, double brickDimensionRatio, Point ballPos){
 
@@ -79,6 +83,8 @@ public class Wall {
         player = new Player((Point) ballPos.clone(),150,10, drawArea);
 
         area = drawArea;
+        
+        this.setScore(score);
 
 
     }
@@ -195,6 +201,18 @@ public class Wall {
             * because for every brick program checks for horizontal and vertical impacts
             */
             brickCount--;
+            //Added
+            
+            if(brickName.equals("ClayBrick")) {
+            	setScore(getScore() + 1);
+            }
+            else if(brickName.equals("CementBrick")) {
+            	setScore(getScore() + 2);
+            }
+            else if(brickName.equals("SteelBrick")) {
+            	setScore(getScore() + 3);
+            }
+            	
         }
         else if(impactBorder()) {
         	ball.reverseX();
@@ -213,17 +231,21 @@ public class Wall {
             switch(b.findImpact(getBall())) {
                 //Vertical Impact
                 case Brick.UP_IMPACT:
+                	brickName = b.getClass().getSimpleName();
                     getBall().reverseY();
                     return b.setImpact(getBall().getDown(), Crack.UP);
                 case Brick.DOWN_IMPACT:
+                	brickName = b.getClass().getSimpleName();
                     getBall().reverseY();
                     return b.setImpact(getBall().getUp(),Crack.DOWN);
 
                 //Horizontal Impact
                 case Brick.LEFT_IMPACT:
+                	brickName = b.getClass().getSimpleName();
                     getBall().reverseX();
                     return b.setImpact(getBall().getRight(),Crack.RIGHT);
                 case Brick.RIGHT_IMPACT:
+                	brickName = b.getClass().getSimpleName();
                     getBall().reverseX();
                     return b.setImpact(getBall().getLeft(),Crack.LEFT);
             }
@@ -348,6 +370,20 @@ public class Wall {
 	public Player getPlayer() {
 		// TODO Auto-generated method stub
 		return player;
+	}
+
+	/**
+	 * @return the score
+	 */
+	public int getScore() {
+		return score;
+	}
+
+	/**
+	 * @param score the score to set
+	 */
+	public void setScore(int score) {
+		this.score = score;
 	}
 
 }
