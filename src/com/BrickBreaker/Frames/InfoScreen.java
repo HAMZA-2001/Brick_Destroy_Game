@@ -28,11 +28,12 @@ public class InfoScreen extends JFrame {
 
 	public InfoScreen() {
 		super();
+	
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 650, 545);
 		contentPane = new JPanel();
-		contentPane.setBackground(Color.WHITE);
+		contentPane.setBackground(new Color(224,139,62));
 		contentPane.setForeground(new Color(0, 0, 0));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -57,14 +58,16 @@ public class InfoScreen extends JFrame {
 		
 		JLabel lblNewLabel = new JLabel("How To Play?");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 27));
+		lblNewLabel.setFont(new Font("Georgia", Font.BOLD, 30));
 		lblNewLabel.setBounds(211, 51, 224, 57);
 		contentPane.add(lblNewLabel);
 		
-		JLabel infoText = new JLabel("<html><body style='text-align: center'>In this game, the player moves a PADDLE from side-to-side to hit a BALL.The game's objective is to eliminate all of the BRICKS at the top of the screen by hitting them with the BALL. But, if the ball hits the bottom ENCLOSURE,the player loses and the game ends! To win the game, all the \t\tBRICKS must be eliminated.</body></html>\r\n");
+		JLabel infoText = new JLabel("<html><body style='text-align: center' >In this game, the player moves a PADDLE from side-to-side to hit a BALL.The game's objective is to eliminate all of the BRICKS at the top of the screen by hitting them with the BALL. But, if the ball hits the bottom ENCLOSURE,the player loses and the game ends! To win the game, all the \t\tBRICKS must be eliminated.</body></html>\r\n");
+		infoText.setBackground(new Color(255, 255, 255));
+		infoText.setForeground(new Color(255, 235, 205));
 		infoText.setHorizontalAlignment(SwingConstants.CENTER);
-		infoText.setFont(new Font("Arial", Font.BOLD, 13));
-		infoText.setBounds(73, 104, 500, 238);
+		infoText.setFont(new Font("Candara", Font.BOLD, 17));
+		infoText.setBounds(86, 104, 471, 238);
 		contentPane.add(infoText);
 		
 		
