@@ -119,7 +119,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
             }
             
             
-            message = String.format("Bricks: %d Balls %d Score: %d Timer: %s",wall.getBrickCount(),wall.getBallCount(),wall.getScore(), timertxt);
+            message = String.format("Bricks %d Balls %d Score %d",wall.getBrickCount(),wall.getBallCount(),wall.getScore());
             scoreText = String.format("HighScore: %s", highScore);
             
             if(wall.isBallLost()){
@@ -129,6 +129,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
                     wall.setScore(0);
                     message = "Game over";
                     scoreText = "";
+                    timertxt = "";
                     timer.stop();
                     initiateTimer();
                     
@@ -141,6 +142,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
                 if(wall.hasLevel()){
                     message = "Go to Next Level";
                     scoreText = "";
+                    timertxt = "";
                     gameTimer.stop();
                     wall.ballReset();
                     wall.wallReset();
@@ -150,6 +152,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
                     message = "ALL WALLS DESTROYED";
                     CheckScore(wall.getScore());
                     scoreText = "";
+                    timertxt = "";
                     gameTimer.stop();
                     timer.stop();
                 }
@@ -189,6 +192,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 				}
 				if(minute==0 && second==0) {
 					message = "The time is over...";
+					timertxt = "";
                     CheckScore(wall.getScore());
                     score = "";
 					timer.stop();
@@ -221,6 +225,13 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         Graphics2D g2d = (Graphics2D) g;
 
         clear(g2d);
+        
+        if(wall.getLevel() >= 5) {
+        	g2d.setColor(Color.DARK_GRAY);
+        	g2d.drawString(timertxt,295,210);
+        }
+        
+        drawBall(wall.getBall(),g2d);
 
         g2d.setColor(Color.BLUE);
         g2d.drawString(message,250,225);
@@ -499,7 +510,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 //            
             if(wall.getLevel() >= 5) 
             {
-            	timertxt = "05:00";
+            	timertxt = "";
             	second =0;
         		minute =5;
         		countdownTimer();
@@ -557,6 +568,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         timer.stop();
         message = "Focus Lost";
         scoreText = "";
+        timertxt = "";
         repaint();
     }
 
