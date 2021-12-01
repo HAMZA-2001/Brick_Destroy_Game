@@ -34,6 +34,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.DecimalFormat;
 
 
 
@@ -57,7 +58,9 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     private Wall wall;
 
     private String message;
-
+    private String scoreText;
+    private String highScore = "";
+    
     private boolean showPauseMenu;
 
     private Font menuFont;
@@ -68,11 +71,18 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     private int strLen;
 
     private DebugConsole debugConsole;
-    
-    private String highScore = "";
-    private String scoreText;
 
+    private int currentLevel;
+    String score;
 
+    //Timer variables
+    Timer timer;	
+	String timertxt;
+	int second, minute;
+	String ddSecond, ddMinute;	
+	DecimalFormat dFormat = new DecimalFormat("00");
+	
+	
     public GameBoard(JFrame owner){
         super();
 
@@ -90,9 +100,12 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         wall = new Wall(new Rectangle(0,0,DEF_WIDTH,DEF_HEIGHT),30,3,6/2,new Point(300,430));
 
         debugConsole = new DebugConsole(owner,wall,this);
+        initiateTimer();
+        
         //initialize the first level
         wall.nextLevel();
-
+        
+        
         gameTimer = new Timer(10,e ->{
             wall.move();
             wall.findImpacts();
@@ -101,7 +114,12 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
             	highScore = GetHighScore();
             }
             
-            message = String.format("Bricks: %d Balls %d Score: %d",wall.getBrickCount(),wall.getBallCount(),wall.getScore());
+            if(wall.getLevel() == 5) {
+            	timer.start();
+            }
+            
+            
+            message = String.format("Bricks: %d Balls %d Score: %d Timer: %s",wall.getBrickCount(),wall.getBallCount(),wall.getScore(), timertxt);
             scoreText = String.format("HighScore: %s", highScore);
             
             if(wall.isBallLost()){
@@ -111,9 +129,12 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
                     wall.setScore(0);
                     message = "Game over";
                     scoreText = "";
+                    timer.stop();
+                    initiateTimer();
                     
                 }
                 wall.ballReset();
+                timer.stop();
                 gameTimer.stop();
             }
             else if(wall.isDone()){
@@ -130,6 +151,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
                     CheckScore(wall.getScore());
                     scoreText = "";
                     gameTimer.stop();
+                    timer.stop();
                 }
             }
  
@@ -137,6 +159,50 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         });
 
     }
+    
+    public void initiateTimer() {
+    	timertxt = "05:00";
+        second =0;
+		minute = 5;
+		countdownTimer();
+    }
+    
+	public void countdownTimer() {
+		
+		timer = new Timer(1000, new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				second--;
+				ddSecond = dFormat.format(second);
+				ddMinute = dFormat.format(minute);	
+				timertxt = ddMinute + ":" + ddSecond;
+				System.out.println(timertxt);
+				
+				if(second==-1) {
+					second = 59;
+					minute--;
+					ddSecond = dFormat.format(second);
+					ddMinute = dFormat.format(minute);	
+					timertxt = ddMinute + ":" + ddSecond;
+				}
+				if(minute==0 && second==0) {
+					message = "The time is over...";
+                    CheckScore(wall.getScore());
+                    score = "";
+					timer.stop();
+					initiateTimer();
+					gameTimer.stop();
+					wall.setScore(0);
+		            wall.ballReset();
+		            wall.wallReset();
+					repaint();
+					
+				}
+			}
+		});		
+	}		
 
 
 
@@ -381,13 +447,21 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
                 showPauseMenu = !showPauseMenu;
                 repaint();
                 gameTimer.stop();
+                timer.stop();
                 break;
             case KeyEvent.VK_SPACE:
                 if(!showPauseMenu)
-                    if(gameTimer.isRunning())
-                        gameTimer.stop();
+                    if(gameTimer.isRunning()) {
+                    	gameTimer.stop();
+                    	timer.stop();
+                    }	
                     else
-                        gameTimer.start();
+                    	if(wall.getLevel() <= 4) {
+                    		gameTimer.start();
+                    	}else {
+                    		gameTimer.start();
+                    		timer.start();
+                    	}
                 break;
             case KeyEvent.VK_F1:
                 if(keyEvent.isAltDown() && keyEvent.isShiftDown())
@@ -418,6 +492,19 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
             wall.ballReset();
             wall.wallReset();
             showPauseMenu = false;
+            
+//            if(wall.getLevel()<=5) {
+//            	currentLevel = wall.getLevel();
+//            }
+//            
+            if(wall.getLevel() >= 5) 
+            {
+            	timertxt = "05:00";
+            	second =0;
+        		minute =5;
+        		countdownTimer();
+            	
+            }
             repaint();
         }
         else if(exitButtonRect.contains(p)){
@@ -467,6 +554,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
     public void onLostFocus(){
         gameTimer.stop();
+        timer.stop();
         message = "Focus Lost";
         scoreText = "";
         repaint();

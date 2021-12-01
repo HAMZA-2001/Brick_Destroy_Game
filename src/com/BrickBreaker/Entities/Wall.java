@@ -69,7 +69,7 @@ public class Wall {
         this.startPoint = new Point(ballPos);
 
         levels = makeLevels(drawArea,brickCount,lineCount,brickDimensionRatio);
-        level = 0;
+        setLevel(0);
 
         ballCount = 3;
         ballLost = false;
@@ -221,6 +221,9 @@ public class Wall {
             else if(brickName.equals("SteelBrick")) {
             	setScore(getScore() + 3);
             }
+            else if(brickName.equals("MarbleBrick")) {
+            	score+=5;
+            }
             	
         }
         else if(impactBorder()) {
@@ -312,14 +315,14 @@ public class Wall {
     public void nextLevel(){
         setBricks(levels[level++]);
         this.brickCount = getBricks().length;
-        if(level == 5) {
+        if(getLevel() == 5) {
         	player = new Player((Point) ballPos.clone(),75,10, area);
         	
         }
     }
 
     public boolean hasLevel(){
-        return level < levels.length;
+        return getLevel() < levels.length;
     }
 
     public void setBallXSpeed(int s){
@@ -402,4 +405,18 @@ public class Wall {
 		this.score = score;
 	}
 
+	/**
+	 * @return the level
+	 */
+	public int getLevel() {
+		return level;
+	}
+
+	/**
+	 * @param level the level to set
+	 */
+	public void setLevel(int level) {
+		this.level = level;
+	}
+	
 }
