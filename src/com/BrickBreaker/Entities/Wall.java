@@ -25,18 +25,23 @@ import com.BrickBreaker.Balls.Ball;
 import com.BrickBreaker.Balls.RubberBall;
 import com.BrickBreaker.Bricks.Brick;
 import com.BrickBreaker.Bricks.CementBrick;
+import com.BrickBreaker.Bricks.MarbleBrick;
 import com.BrickBreaker.Bricks.ClayBrick;
 import com.BrickBreaker.Bricks.Crack;
 import com.BrickBreaker.Bricks.SteelBrick;
 
+import com.BrickBreaker.Balls.Ball;
+
+
 
 public class Wall {
 
-    private static final int LEVELS_COUNT = 4;
+    private static final int LEVELS_COUNT = 5;
 
     private static final int CLAY = 1;
     private static final int STEEL = 2;
     private static final int CEMENT = 3;
+    private static final int MARBLE = 4;
 
     private Random rnd;
     private Rectangle area;
@@ -56,6 +61,8 @@ public class Wall {
     //Added
     private String brickName;
     private int score;
+    
+    Point ballPos;
 
     public Wall(Rectangle drawArea, int brickCount, int lineCount, double brickDimensionRatio, Point ballPos){
 
@@ -84,6 +91,7 @@ public class Wall {
 
         area = drawArea;
         
+        this.ballPos = ballPos;
         this.setScore(score);
 
 
@@ -184,6 +192,7 @@ public class Wall {
         tmp[1] = makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio,CLAY,CEMENT);
         tmp[2] = makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio,CLAY,STEEL);
         tmp[3] = makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio,STEEL,CEMENT);
+        tmp[4] = makeChessboardLevel(drawArea,brickCount,lineCount,brickDimensionRatio,CEMENT,MARBLE);
         return tmp;
     }
 
@@ -303,6 +312,10 @@ public class Wall {
     public void nextLevel(){
         setBricks(levels[level++]);
         this.brickCount = getBricks().length;
+        if(level == 5) {
+        	player = new Player((Point) ballPos.clone(),75,10, area);
+        	
+        }
     }
 
     public boolean hasLevel(){
@@ -333,6 +346,9 @@ public class Wall {
             case CEMENT:
                 out = new CementBrick(point, size);
                 break;
+            case MARBLE:
+            	out = new MarbleBrick(point, size);
+            	break;
             default:
                 throw  new IllegalArgumentException(String.format("Unknown Type:%d\n",type));
         }
