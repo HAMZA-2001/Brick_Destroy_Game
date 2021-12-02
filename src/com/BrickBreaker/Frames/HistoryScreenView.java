@@ -66,13 +66,11 @@ public class HistoryScreenView extends JFrame {
 		JLabel infoText = new JLabel("\r\n");
 		HistoryScreenModel historymodel = new HistoryScreenModel();
 		infoText.setText("<html>"+"<h1><u>Scores of Last 10 games </u></h1><<br/>" + historymodel.readScore(20) + "</html>");
-//		infoText.setText("<html>"+"<h1><u>Scores of Last 10 games </u></h1><<br/>" + previousScores() + "</html>");
 		infoText.setBackground(new Color(255, 255, 255));
 		infoText.setForeground(new Color(255, 235, 205));
 		infoText.setHorizontalAlignment(SwingConstants.CENTER);
 		infoText.setFont(new Font("Candara", Font.BOLD, 17));
 		infoText.setBounds(86, 104, 471, 262);
-		//line++;
 		contentPane.add(infoText);
 		
 		
@@ -84,11 +82,6 @@ public class HistoryScreenView extends JFrame {
 		contentPane.add(bg);
 	}
 	
-	private String previousScores(String readFile) {
-		
-		return readFile;
-	}
-
 	public void initialize() {
 		
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
