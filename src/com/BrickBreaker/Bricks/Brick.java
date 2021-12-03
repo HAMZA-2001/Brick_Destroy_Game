@@ -172,27 +172,27 @@ abstract public class Brick  {
 //
 //    }
 
-    public static Random rnd;
+    public static Random rnd; //Changed rnd to random
 
     private String name;
-    Shape brickFace;
+    Shape brickBody; //Changed brickFace to brickBody
 
-    private Color border;
-    private Color inner;
+    private Color borderColor; // Changed border to borderColor
+    private Color innerColor; // Changed inner to innerColor
 
     private int fullStrength;
     private int strength;
 
-    private boolean broken;
+    private boolean isbroken; //Changed broken to isbroken
 
 
-    public Brick(String name, Point pos,Dimension size,Color border,Color inner,int strength){
+    public Brick(String name, Point pos,Dimension size,Color border,Color innerColor,int strength){
         rnd = new Random();
-        broken = false;
+        isbroken = false;
         this.setName(name);
-        brickFace = makeBrickFace(pos,size);
-        this.border = border;
-        this.inner = inner;
+        brickBody = makeBrickFace(pos,size);
+        this.borderColor = border;
+        this.innerColor = innerColor;
         this.fullStrength = this.strength = strength;
 
     }
@@ -200,10 +200,10 @@ abstract public class Brick  {
     protected abstract Shape makeBrickFace(Point pos,Dimension size);
 
     public  boolean setImpact(Point2D point , int dir){
-        if(broken)
+        if(isbroken)
             return false;
         impact();
-        return  broken;
+        return  isbroken;
     }
 
     public abstract Shape getBrick();
@@ -211,41 +211,41 @@ abstract public class Brick  {
 
 
     public Color getBorderColor(){
-        return  border;
+        return  borderColor;
     }
 
     public Color getInnerColor(){
-        return inner;
+        return innerColor;
     }
 
 
     public final int findImpact(Ball b){
-        if(broken)
+        if(isbroken)
             return 0;
         int out  = 0;
-        if(brickFace.contains(b.getRight()))
+        if(brickBody.contains(b.getRight()))
             out = LEFT_IMPACT;
-        else if(brickFace.contains(b.getLeft()))
+        else if(brickBody.contains(b.getLeft()))
             out = RIGHT_IMPACT;
-        else if(brickFace.contains(b.getUp()))
+        else if(brickBody.contains(b.getUp()))
             out = DOWN_IMPACT;
-        else if(brickFace.contains(b.getDown()))
+        else if(brickBody.contains(b.getDown()))
             out = UP_IMPACT;
         return out;
     }
 
     public final boolean isBroken(){
-        return broken;
+        return isbroken;
     }
 
     public void repair() {
-        broken = false;
+        isbroken = false;
         strength = fullStrength;
     }
 
     public void impact(){
         strength--;
-        broken = (strength == 0);
+        isbroken = (strength == 0);
     }
 
 	/**

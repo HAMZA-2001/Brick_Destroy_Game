@@ -7,19 +7,19 @@ import java.awt.geom.Point2D;
 public class MarbleBrick extends Brick{
 
 
-	    private static final String NAME = "Cement Brick";
+	    private static final String BRICK_NAME = "Cement Brick";
 	    private static final Color DEF_INNER = new Color(255, 246, 227);
 	    private static final Color DEF_BORDER = new Color(217, 199, 175);
 	    private static final int CEMENT_STRENGTH = 3;
 
 	    private Crack crack;
-	    private Shape brickFace;
+	    private Shape brickBody;
 
 
 	    public MarbleBrick(Point point, Dimension size){
-	        super(NAME,point,size,DEF_BORDER,DEF_INNER,CEMENT_STRENGTH);
+	        super(BRICK_NAME,point,size,DEF_BORDER,DEF_INNER,CEMENT_STRENGTH);
 	        crack = new Crack(DEF_CRACK_DEPTH,DEF_STEPS, this);
-	        brickFace = super.brickFace;
+	        brickBody = super.brickBody;
 	    }
 
 	    @Override
@@ -43,21 +43,21 @@ public class MarbleBrick extends Brick{
 
 	    @Override
 	    public Shape getBrick() {
-	        return brickFace;
+	        return brickBody;
 	    }
 
 	    private void updateBrick(){
 	        if(!super.isBroken()){
 	            GeneralPath gp = crack.draw();
-	            gp.append(super.brickFace,false);
-	            brickFace = gp;
+	            gp.append(super.brickBody,false);
+	            brickBody = gp;
 	        }
 	    }
 
 	    public void repair(){
 	        super.repair();
 	        crack.reset();
-	        brickFace = super.brickFace;
+	        brickBody = super.brickBody;
 	    }
 	}
 

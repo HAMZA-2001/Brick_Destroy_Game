@@ -29,7 +29,7 @@ public class Player {
 
     private static final int DEF_MOVE_AMOUNT = 5;
 
-    private Rectangle playerFace;
+    private Rectangle playerBody; // was playerFace before
     private Point ballPoint;
     private int moveAmount;
     private int min;
@@ -39,7 +39,7 @@ public class Player {
     public Player(Point ballPoint,int width,int height,Rectangle container) {
         this.ballPoint = ballPoint;
         moveAmount = 0;
-        playerFace = makeRectangle(width, height);
+        playerBody = makeRectangle(width, height);
         min = container.x + (width / 2);
         max = min + container.width - width;
 
@@ -51,7 +51,7 @@ public class Player {
     }
 
     public boolean impact(Ball b){
-        return playerFace.contains(b.getPosition()) && playerFace.contains(b.getDown()) ;
+        return playerBody.contains(b.getPosition()) && playerBody.contains(b.getDown()) ;
     }
 
     public void move(){
@@ -59,14 +59,14 @@ public class Player {
         if(x < min || x > max)
             return;
         ballPoint.setLocation(x,ballPoint.getY());
-        playerFace.setLocation(ballPoint.x - (int)playerFace.getWidth()/2,ballPoint.y);
+        playerBody.setLocation(ballPoint.x - (int)playerBody.getWidth()/2,ballPoint.y);
     }
 
     public void moveLeft(){
         moveAmount = -DEF_MOVE_AMOUNT;
     }
 
-    public void movRight(){
+    public void moveRight(){  // was movRight() before
         moveAmount = DEF_MOVE_AMOUNT;
     }
 
@@ -74,12 +74,12 @@ public class Player {
         moveAmount = 0;
     }
 
-    public Shape getPlayerFace(){
-        return  playerFace;
+    public Shape getPlayerBody(){ // was getPlayerFace() before
+        return  playerBody;
     }
 
     public void moveTo(Point p){
         ballPoint.setLocation(p);
-        playerFace.setLocation(ballPoint.x - (int)playerFace.getWidth()/2,ballPoint.y);
+        playerBody.setLocation(ballPoint.x - (int)playerBody.getWidth()/2,ballPoint.y);
     }
 }

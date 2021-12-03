@@ -226,14 +226,14 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         Graphics2D g2d = (Graphics2D) g;
 
         clear(g2d);
-        
+
         if(wall.getLevel() >= 5) {
         	g2d.setColor(Color.DARK_GRAY);
         	g2d.drawString(timertxt,295,210);
         }
         
         drawBall(wall.getBall(),g2d);
-
+        
         g2d.setColor(Color.BLUE);
         g2d.drawString(message,250,225);
         
@@ -291,7 +291,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     private void drawPlayer(Player p,Graphics2D g2d){
         Color tmp = g2d.getColor();
 
-        Shape s = p.getPlayerFace();
+        Shape s = p.getPlayerBody();
         g2d.setColor(Player.INNER_COLOR);
         g2d.fill(s);
 
@@ -453,7 +453,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
                 wall.getPlayer().moveLeft();
                 break;
             case KeyEvent.VK_D:
-                wall.getPlayer().movRight();
+                wall.getPlayer().moveRight();
                 break;
             case KeyEvent.VK_ESCAPE:
                 showPauseMenu = !showPauseMenu;

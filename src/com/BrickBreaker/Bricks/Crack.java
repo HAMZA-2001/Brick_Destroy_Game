@@ -78,7 +78,7 @@ import java.awt.geom.Point2D;
          * @param direction direction of the crack
          */
         protected void makeCrack(Point2D point, int direction){
-            Rectangle bounds = brick.brickFace.getBounds();
+            Rectangle bounds = brick.brickBody.getBounds();
 
             Point impact = new Point((int)point.getX(),(int)point.getY());
             Point start = new Point();
@@ -172,20 +172,22 @@ import java.awt.geom.Point2D;
             return  0;
 
         }
+        
+        // Changed the parameter name from and to to start and end
 
-        private Point makeRandomPoint(Point from,Point to, int direction){
+        private Point makeRandomPoint(Point start,Point end, int direction){
 
             Point out = new Point();
             int pos;
 
             switch(direction){
                 case HORIZONTAL:
-                    pos = Brick.rnd.nextInt(to.x - from.x) + from.x;
-                    out.setLocation(pos,to.y);
+                    pos = Brick.rnd.nextInt(end.x - start.x) + start.x;
+                    out.setLocation(pos,end.y);
                     break;
                 case VERTICAL:
-                    pos = Brick.rnd.nextInt(to.y - from.y) + from.y;
-                    out.setLocation(to.x,pos);
+                    pos = Brick.rnd.nextInt(end.y - start.y) + start.y;
+                    out.setLocation(end.x,pos);
                     break;
             }
             return out;

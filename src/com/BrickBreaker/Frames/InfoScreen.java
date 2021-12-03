@@ -38,29 +38,28 @@ public class InfoScreen extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
 
 		
-		JButton btnNewButton = new JButton("Back");
-		btnNewButton.setForeground(SystemColor.text);
-		btnNewButton.setBackground(new Color(128, 0, 0));
-		btnNewButton.setFont(new Font("SansSerif", Font.BOLD, 15));
-		btnNewButton.setFocusable(false);
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton backButton = new JButton("Back");
+		backButton.setForeground(SystemColor.text);
+		backButton.setBackground(new Color(128, 0, 0));
+		backButton.setFont(new Font("SansSerif", Font.BOLD, 15));
+		backButton.setFocusable(false);
+		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				enableHomeBoard();
 				GameFrame owner = new GameFrame();
 				owner.initialize();	
 			}
 		});
-		btnNewButton.setBounds(286, 353, 99, 48);
-		contentPane.add(btnNewButton);
+		backButton.setBounds(286, 353, 99, 48);
+		contentPane.add(backButton);
 		
-		JLabel lblNewLabel = new JLabel("How To Play?");
-		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel.setFont(new Font("Georgia", Font.BOLD, 30));
-		lblNewLabel.setBounds(211, 51, 224, 57);
-		contentPane.add(lblNewLabel);
+		JLabel Title = new JLabel("How To Play?");
+		Title.setHorizontalAlignment(SwingConstants.CENTER);
+		Title.setFont(new Font("Georgia", Font.BOLD, 30));
+		Title.setBounds(211, 51, 224, 57);
+		contentPane.add(Title);
 		
 		JLabel infoText = new JLabel("<html><body style='text-align: center' >In this game, the player moves a PADDLE from side-to-side to hit a BALL.The game's objective is to eliminate all of the BRICKS at the top of the screen by hitting them with the BALL. But, if the ball hits the bottom ENCLOSURE,the player loses and the game ends! To win the game, all the \t\tBRICKS must be eliminated.</body></html>\r\n");
 		infoText.setBackground(new Color(255, 255, 255));
@@ -71,12 +70,12 @@ public class InfoScreen extends JFrame {
 		contentPane.add(infoText);
 		
 		
-		JLabel bg = new JLabel("");
-		bg.setToolTipText("");
+		JLabel backgroundImage = new JLabel("");
+		backgroundImage.setToolTipText("");
 		Image img = new ImageIcon(this.getClass().getResource("/info-bg-pic3.png")).getImage();
-		bg.setIcon(new ImageIcon(img));
-		bg.setBounds(0, 0,650, 500);
-		contentPane.add(bg);
+		backgroundImage.setIcon(new ImageIcon(img));
+		backgroundImage.setBounds(0, 0,650, 500);
+		contentPane.add(backgroundImage);
 	}
 	
 	public void initialize() {
@@ -98,7 +97,6 @@ public class InfoScreen extends JFrame {
     
     public void enableHomeBoard(){
         this.dispose();
-
     }
 
 

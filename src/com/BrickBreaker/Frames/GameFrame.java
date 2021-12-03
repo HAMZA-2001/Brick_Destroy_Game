@@ -33,12 +33,12 @@ public class GameFrame extends JFrame implements WindowFocusListener {
     private GameBoard gameBoard;
     private HomeMenu homeMenu;
 
-    private boolean gaming;
+    private boolean windowFocus; //was gaming before
 
     public GameFrame(){
         super();
 
-        gaming = false;
+        windowFocus = false;
 
         this.setLayout(new BorderLayout());
 
@@ -90,12 +90,12 @@ public class GameFrame extends JFrame implements WindowFocusListener {
             is useful only if the GameBoard as been displayed
             at least once
          */
-        gaming = true;
+        windowFocus = true;
     }
 
     @Override
     public void windowLostFocus(WindowEvent windowEvent) {
-        if(gaming)
+        if(windowFocus)
             gameBoard.onLostFocus();
 
     }

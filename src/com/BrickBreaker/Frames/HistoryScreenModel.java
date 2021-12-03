@@ -20,9 +20,6 @@ public class HistoryScreenModel {
     private String txt1; //txt to be written
 
 
-
-
-
     public void writeScore(int score){
 
         JFrame frame = new JFrame("User Name Storing");
@@ -73,7 +70,6 @@ public class HistoryScreenModel {
         panel.add(label);
         frame.getContentPane().add(panel, BorderLayout.CENTER);
 
-
     }
 
     public String readScore(int lines){
@@ -84,13 +80,16 @@ public class HistoryScreenModel {
         try {
             randomAccessFile = new RandomAccessFile(historyFile, "r");
             long fileLength = historyFile.length() - 1;
+            
             // Set the pointer at the last of the file
             randomAccessFile.seek(fileLength);
             for(long pointer = fileLength; pointer >= 0; pointer--){
                 randomAccessFile.seek(pointer);
                 char c;
+                
                 // read from the last one char at the time
                 c = (char)randomAccessFile.read();
+                
                 // break when end of the line
                 if(c == '\n'){
                     builder.append(">/rb<"); //writing reverse of </br> because file is being read back words and then reverced
@@ -100,6 +99,7 @@ public class HistoryScreenModel {
                 }
                 builder.append(c);
             }
+            
             // Since line is read from the last so it
             // is in reverse so use reverse method to make it right
             builder.reverse();

@@ -43,7 +43,7 @@ public class Wall {
 //    private static final int CEMENT = 3;
 //    private static final int MARBLE = 4;
 
-    private Random rnd;
+    private Random randomNumber; //was rnd before
     private Rectangle area;
 
     private Brick[] bricks;
@@ -74,15 +74,15 @@ public class Wall {
         ballCount = 3;
         ballLost = false;
 
-        rnd = new Random();
+        randomNumber = new Random();
 
         makeBall(ballPos);
         int speedX,speedY;
         do{
-            speedX = rnd.nextInt(5) - 2;
+            speedX = randomNumber.nextInt(5) - 2;
         }while(speedX == 0);
         do{
-            speedY = -rnd.nextInt(3);
+            speedY = -randomNumber.nextInt(3);
         }while(speedY == 0);
 
         getBall().setSpeed(speedX,speedY);
@@ -287,10 +287,10 @@ public class Wall {
         ball.moveTo(startPoint);
         int speedX,speedY;
         do{
-            speedX = rnd.nextInt(5) - 2;
+            speedX = randomNumber.nextInt(5) - 2;
         }while(speedX == 0);
         do{
-            speedY = -rnd.nextInt(3);
+            speedY = -randomNumber.nextInt(3);
         }while(speedY == 0);
 
         getBall().setSpeed(speedX,speedY);
