@@ -89,11 +89,10 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         strLen = 0;
         showPauseMenu = false;
 
-
-
         menuFont = new Font("Monospaced",Font.PLAIN,TEXT_SIZE);
-
-
+        
+        HistoryScreenModel scoreList = new HistoryScreenModel();
+        
         this.initialize();
         message = "";
         scoreText = "";
@@ -104,6 +103,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         
         //initialize the first level
         wall.nextLevel();
+        
         
         
         gameTimer = new Timer(10,e ->{
@@ -126,6 +126,7 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
                 if(wall.ballEnd()){
                     wall.wallReset();
                     CheckScore(wall.getScore());
+                    scoreList.writeScore(wall.getScore());
                     wall.setScore(0);
                     message = "Game over";
                     scoreText = "";
