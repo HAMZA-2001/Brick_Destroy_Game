@@ -25,6 +25,7 @@ import com.BrickBreaker.Debug.DebugConsole;
 import com.BrickBreaker.Entities.Player;
 import com.BrickBreaker.Entities.Wall;
 
+
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.font.FontRenderContext;
@@ -82,7 +83,10 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 	String ddSecond, ddMinute;	
 	DecimalFormat dFormat = new DecimalFormat("00");
 	
-	
+	/**
+	 * Initializes and constructs the game board for and runs the game
+	 * @param owner JFrame object which provides a window on the screen
+	 */
     public GameBoard(JFrame owner){
         super();
 
@@ -164,6 +168,9 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
     }
     
+    /**
+     * sets up and initializes the countdown timer for it to run whenever called
+     */
     public void initiateTimer() {
     	timertxt = "05:00";
         second =0;
@@ -171,6 +178,9 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 		countdownTimer();
     }
     
+    /**
+     * counts down the time set which is set to 5 minutes and when the time is over it repaints the game board and notifies user that the time is over
+     */
 	public void countdownTimer() {
 		
 		timer = new Timer(1000, new ActionListener() {
@@ -210,7 +220,9 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 	}		
 
 
-
+	/**
+	 * initialize the GameBoard window to set it up and running
+	 */
     private void initialize(){
         this.setPreferredSize(new Dimension(DEF_WIDTH,DEF_HEIGHT));
         this.setFocusable(true);
@@ -220,7 +232,9 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         this.addMouseMotionListener(this);
     }
     
-
+    /**
+     * paints the screen using Graphics object
+     */
     public void paint(Graphics g){
 
         Graphics2D g2d = (Graphics2D) g;
@@ -254,13 +268,22 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         Toolkit.getDefaultToolkit().sync();
     }
 
+    /**
+     * clears the contents from the frame 
+     * @param g2d
+     */
     private void clear(Graphics2D g2d){
         Color tmp = g2d.getColor();
         g2d.setColor(BG_COLOR);
         g2d.fillRect(0,0,getWidth(),getHeight());
         g2d.setColor(tmp);
     }
-
+    
+    /**
+     * draws the bricks to be displayed in the game frame
+     * @param brick Brick object 
+     * @param g2d 	graphics2D object
+     */
     private void drawBrick(Brick brick,Graphics2D g2d){
         Color tmp = g2d.getColor();
 
@@ -273,7 +296,12 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
         g2d.setColor(tmp);
     }
-
+    
+    /**
+     * draws the ball to be displayed in the game frame
+     * @param ball Ball object
+     * @param g2d graphics2D object
+     */
     private void drawBall(Ball ball,Graphics2D g2d){
         Color tmp = g2d.getColor();
 
@@ -288,24 +316,37 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         g2d.setColor(tmp);
     }
 
+    /** 
+     * draws the player to be displayed in the game frame
+     * @param p Player object
+     * @param g2d graphics2D object 
+     */
     private void drawPlayer(Player p,Graphics2D g2d){
         Color tmp = g2d.getColor();
 
         Shape s = p.getPlayerBody();
         g2d.setColor(Player.INNER_COLOR);
         g2d.fill(s);
-
+  
         g2d.setColor(Player.BORDER_COLOR);
         g2d.draw(s);
 
         g2d.setColor(tmp);
     }
-
+    
+    /**
+     * draws the menu portion of the game to be displayed
+     * @param g2d graphics2D object
+     */
     private void drawMenu(Graphics2D g2d){
         obscureGameBoard(g2d);
         drawPauseMenu(g2d);
     }
 
+    /**
+     * obscures the game screen
+     * @param g2d graphics2D object
+     */
     private void obscureGameBoard(Graphics2D g2d){
 
         Composite tmp = g2d.getComposite();
@@ -320,7 +361,11 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         g2d.setComposite(tmp);
         g2d.setColor(tmpColor);
     }
-
+    
+    /**
+     * draws the pause menu of the game
+     * @param g2d graphics2D object
+     */
     private void drawPauseMenu(Graphics2D g2d){
         Font tmpFont = g2d.getFont();
         Color tmpColor = g2d.getColor();
@@ -375,6 +420,11 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
         g2d.setColor(tmpColor);
     }
     //Added
+    
+    /**
+     * reads the the users highest score from highscore data file, if the file is not created then it sets up the data file in your working directory and initialize it with a dummy user and a score
+     * @return username alongside its score
+     */
     public String GetHighScore() {
     	FileReader readFile = null;
     	BufferedReader reader = null;
@@ -399,17 +449,22 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     	
     }
     
+   /**
+    * Compares the gamescore by the highest score if its greater than highest score then it prompts a JPane 
+    * inorder to retrieve the user name and it overwrites the user name and its gamescore in the highscore data
+    * file, else the previous highscore is remained in the data file
+    * @param gamescore user's final score made uptill the game is ended
+    */
     public void CheckScore(int gamescore) {
     	
     	if (gamescore > Integer.parseInt((highScore.split(":")[1]))) {
     	
     		//user sets a new record
     		String name =  JOptionPane.showInputDialog("You have set a new highscore. What is your name?");
-    		//String name =  JOptionPane.showInputDialog("You have set a new highscore. What is your name?");
     		this.highScore = name + ":" + gamescore;
     		
     		File scoreFile = new File("highscore.dat");
-    		//System.out.println(scoreFile.getAbsolutePath());
+
     		if(!scoreFile.exists()) {
     			try {
 					scoreFile.createNewFile();
@@ -441,11 +496,16 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
     	}
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void keyTyped(KeyEvent keyEvent) {
     }
-
+    
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void keyPressed(KeyEvent keyEvent) {
         switch(keyEvent.getKeyCode()){
@@ -482,12 +542,18 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
                 wall.getPlayer().stop();
         }
     }
-
+    
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void keyReleased(KeyEvent keyEvent) {
         wall.getPlayer().stop();
     }
-
+    
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void mouseClicked(MouseEvent mouseEvent) {
         Point p = mouseEvent.getPoint();
@@ -525,31 +591,49 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
 
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void mousePressed(MouseEvent mouseEvent) {
 
     }
-
+    
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void mouseReleased(MouseEvent mouseEvent) {
 
     }
-
+    
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void mouseEntered(MouseEvent mouseEvent) {
 
     }
-
+    
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void mouseExited(MouseEvent mouseEvent) {
 
     }
-
+    
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void mouseDragged(MouseEvent mouseEvent) {
 
     }
-
+    
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void mouseMoved(MouseEvent mouseEvent) {
         Point p = mouseEvent.getPoint();
@@ -563,7 +647,10 @@ public class GameBoard extends JComponent implements KeyListener,MouseListener,M
             this.setCursor(Cursor.getDefaultCursor());
         }
     }
-
+    
+    /**
+     * displays and pause the game if the window is out of focus
+     */
     public void onLostFocus(){
         gameTimer.stop();
         timer.stop();

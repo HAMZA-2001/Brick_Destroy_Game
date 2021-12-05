@@ -32,31 +32,48 @@ public class SteelBrick extends Brick {
 
     private Random random;
     private Shape brickBody;
-
+    
+    /**
+     * Instantiate a SteelBrick object
+     * @param point Point object
+     * @param size dimensions of the brick
+     */
     public SteelBrick(Point point, Dimension size){
         super(BRICK_NAME,point,size,DEF_BORDER,DEF_INNER,STEEL_STRENGTH);
         random = new Random();
         brickBody = super.brickBody;
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected Shape makeBrickFace(Point pos, Dimension size) {
         return new Rectangle(pos,size);
     }
-
+    
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Shape getBrick() {
         return brickBody;
-    }
-
-    public  boolean setImpact(Point2D point , int dir){
+    }	
+    
+    /**
+     * if the wall have made an impact 
+     * @return if the wall is broken
+     */
+    public boolean setImpact(Point2D point , int dir){
         if(super.isBroken())
             return false;
         impact();
         return  super.isBroken();
     }
-
+    
+    /**
+     * impact of made between ball and steel brick
+     */
     public void impact(){
         if(random.nextDouble() < STEEL_PROBABILITY){
             super.impact();

@@ -34,7 +34,10 @@ public class GameFrame extends JFrame implements WindowFocusListener {
     private HomeMenu homeMenu;
 
     private boolean windowFocus; //was gaming before
-
+    
+    /**
+     * Instantiate the GameFrame object
+     */
     public GameFrame(){
         super();
 
@@ -53,6 +56,9 @@ public class GameFrame extends JFrame implements WindowFocusListener {
 
     }
 
+    /**
+     * initializes the designated frame window
+     */
     public void initialize(){
         this.setTitle(DEF_TITLE);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -60,7 +66,10 @@ public class GameFrame extends JFrame implements WindowFocusListener {
         this.autoLocate();
         this.setVisible(true);
     }
-
+    
+    /**
+     * cleanups/changes the JFrame window of homeMenu and sets up the GameBoard window
+     */
     public void enableGameBoard(){
         this.dispose();
         this.remove(homeMenu);
@@ -71,7 +80,10 @@ public class GameFrame extends JFrame implements WindowFocusListener {
         this.addWindowFocusListener(this);
 
     }
-
+    
+    /**
+     * re-centers our game window
+     */
     private void autoLocate(){
         Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
         int x = (size.width - this.getWidth()) / 2;
@@ -79,7 +91,9 @@ public class GameFrame extends JFrame implements WindowFocusListener {
         this.setLocation(x,y);
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void windowGainedFocus(WindowEvent windowEvent) {
         /*
@@ -92,7 +106,10 @@ public class GameFrame extends JFrame implements WindowFocusListener {
          */
         windowFocus = true;
     }
-
+    
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void windowLostFocus(WindowEvent windowEvent) {
         if(windowFocus)

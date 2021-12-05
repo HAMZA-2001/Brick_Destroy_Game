@@ -18,16 +18,26 @@ public class ClayBrick extends Brick {
 
 
 
-
+    /**
+     * Instantiate a ClayBrick object
+     * @param point Point object
+     * @param size dimension of the brick
+     */
     public ClayBrick(Point point, Dimension size){
         super(BRICK_NAME,point,size,DEF_BORDER,DEF_INNER,CLAY_STRENGTH);
     }
-
+    
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected Shape makeBrickFace(Point pos, Dimension size) {
         return new Rectangle(pos,size);
     }
-
+    
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Shape getBrick() {
         return super.brickBody;

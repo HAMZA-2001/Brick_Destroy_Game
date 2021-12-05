@@ -25,7 +25,10 @@ import java.awt.SystemColor;
 public class InfoScreen extends JFrame {
 
 	private JPanel contentPane;
-
+	
+	/**
+	 * Instantiate a InforScreen object
+	 */
 	public InfoScreen() {
 		super();
 	
@@ -78,6 +81,9 @@ public class InfoScreen extends JFrame {
 		contentPane.add(backgroundImage);
 	}
 	
+	/**
+	 * initializes the frame to set
+	 */
 	public void initialize() {
 		
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -86,7 +92,9 @@ public class InfoScreen extends JFrame {
       
 	}
 	
-	
+	/**
+	 * Relocates the screen
+	 */
     private void autoLocate(){
         Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
         int x = (size.width - this.getWidth()) / 2;
@@ -94,7 +102,9 @@ public class InfoScreen extends JFrame {
         this.setLocation(x,y);
     }
     
-    
+   /**
+    * Disposes the current frame to initialize HomeBoard
+    */
     public void enableHomeBoard(){
         this.dispose();
     }

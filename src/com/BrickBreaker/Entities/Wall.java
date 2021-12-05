@@ -63,7 +63,15 @@ public class Wall {
     private int score;
     
     Point ballPos;
-
+    
+    /**
+     * Instantiate the Wall object
+     * @param drawArea rectangle object which draws the wall 
+     * @param brickCount number of bricks
+     * @param lineCount number of lines
+     * @param brickDimensionRatio ratio of the dimensions of the bricks
+     * @param ballPos position of the ball
+     */
     public Wall(Rectangle drawArea, int brickCount, int lineCount, double brickDimensionRatio, Point ballPos){
 
         this.startPoint = new Point(ballPos);
@@ -181,7 +189,11 @@ public class Wall {
 //        }
 //        return tmp;
 //    }
-
+    
+    /**
+     * Creates a RubberBall instance 
+     * @param ballPos position of the ball to be set
+     */
     private void makeBall(Point2D ballPos){
     	ball = new RubberBall(ballPos);
     }
@@ -196,11 +208,17 @@ public class Wall {
 //        return tmp;
 //    }
 
+    /**
+     * moves both the player and the ball
+     */
     public void move(){
         player.move();
         getBall().move();
     }
 
+    /**
+     * find the impact position of the ball with the wall and changes balls position upon impact which updates the score 
+     */
     public void findImpacts(){
         if(player.impact(getBall())){
             ball.reverseY();
@@ -237,7 +255,11 @@ public class Wall {
             ballLost = true;
         }
     }
-
+    
+    /**
+     * iterates over the list of bricks and rebounce the ball upon impact and sets up a crack when required
+     * @return if the brick and the ball have made the impact
+     */
     private boolean impactWall(){
         for(Brick b : getBricks()){
             switch(b.findImpact(getBall())) {
@@ -264,24 +286,42 @@ public class Wall {
         }
         return false;
     }
-
+    
+    /**
+     * point where the ball impacts the wall area
+     * @return if the ball have impacted the boarder
+     */
     private boolean impactBorder(){
         Point2D p = getBall().getPosition();
         return ((p.getX() < area.getX()) ||(p.getX() > (area.getX() + area.getWidth())));
     }
-
+    
+    /**
+     * @return number of bricks
+     */
     public int getBrickCount(){
         return brickCount;
     }
-
+    
+    /**
+     * 
+     * @return number of balls remaining
+     */
     public int getBallCount(){
         return ballCount;
     }
-
+    
+    /**
+     * 
+     * @return if the ball is lost
+     */
     public boolean isBallLost(){
         return ballLost;
     }
-
+    
+    /**
+     * resets the ball and player back to its initial position
+     */
     public void ballReset(){
         player.moveTo(startPoint);
         ball.moveTo(startPoint);
@@ -296,43 +336,71 @@ public class Wall {
         getBall().setSpeed(speedX,speedY);
         ballLost = false;
     }
-
+    
+    /**
+     * resets the wall bricks and resets the ball count
+     */
     public void wallReset(){
         for(Brick b : getBricks())
             b.repair();
         brickCount = getBricks().length;
         ballCount = 3;
     }
-
+    
+    /**
+     * 
+     * @return if the number of balls remaining are 0 or not
+     */
     public boolean ballEnd(){
         return ballCount == 0;
     }
-
+    
+    /**
+     * 
+     * @return if the number of bricks remaining are 0 or not
+     */
     public boolean isDone(){
         return brickCount == 0;
     }
 
+   /**
+    * sets up the next level
+    */
     public void nextLevel(){
         setBricks(levels[level++]);
         this.brickCount = getBricks().length;
         if(getLevel() == 5) {
-        	player = new Player((Point) ballPos.clone(),75,10, area);
-        	
+        	player = new Player((Point) ballPos.clone(),85,10, area);
         }
     }
-
+    
+    /**
+     * 
+     * @return if the current level is lesser than total number of levels
+     */
     public boolean hasLevel(){
         return getLevel() < levels.length;
     }
-
+    
+    /**
+     * sets ball's speed at x axis
+     * @param s speed to be set as
+     */
     public void setBallXSpeed(int s){
         ball.setXSpeed(s);
     }
-
+    
+    /**
+     * sets ball's speed at y axis
+     * @param s speed to be set as
+     */
     public void setBallYSpeed(int s){
         getBall().setYSpeed(s);
     }
-
+    
+    /**
+     * resets the number of balls
+     */
     public void resetBallCount(){
         ballCount = 3;
     }

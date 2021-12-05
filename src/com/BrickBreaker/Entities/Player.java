@@ -35,7 +35,13 @@ public class Player {
     private int min;
     private int max;
 
-
+    /**
+     * Instantiate the Player object
+     * @param ballPoint point of the ball
+     * @param width player's width
+     * @param height player's height
+     * @param container Rectangle object for player's shape
+     */
     public Player(Point ballPoint,int width,int height,Rectangle container) {
         this.ballPoint = ballPoint;
         moveAmount = 0;
@@ -44,16 +50,31 @@ public class Player {
         max = min + container.width - width;
 
     }
-
+    
+    /**
+     * makes a rectangle of the given coordinates at a point
+     * @param width width of rectangle
+     * @param height height of rectangle
+     * @return a Rectangle object
+     */
     private Rectangle makeRectangle(int width,int height){
         Point p = new Point((int)(ballPoint.getX() - (width / 2)),(int)ballPoint.getY());
         return  new Rectangle(p,new Dimension(width,height));
     }
-
+    
+    /**
+     * 
+     * @param b Ball object
+     * @return if ball have made impact with player
+     */
     public boolean impact(Ball b){
         return playerBody.contains(b.getPosition()) && playerBody.contains(b.getDown()) ;
     }
-
+    
+    /**
+     * movement on x axis of the player and updates its location
+     * 
+     */
     public void move(){
         double x = ballPoint.getX() + moveAmount;
         if(x < min || x > max)
@@ -62,22 +83,38 @@ public class Player {
         playerBody.setLocation(ballPoint.x - (int)playerBody.getWidth()/2,ballPoint.y);
     }
 
+    /**
+     * move player to the left
+     */
     public void moveLeft(){
         moveAmount = -DEF_MOVE_AMOUNT;
     }
-
+    
+    /**
+     * move player to the right
+     */
     public void moveRight(){  // was movRight() before
         moveAmount = DEF_MOVE_AMOUNT;
     }
-
+    
+    /**
+     * stops the player
+     */
     public void stop(){
         moveAmount = 0;
     }
-
+    
+    /**
+     * @return the Shape of player
+     */
     public Shape getPlayerBody(){ // was getPlayerFace() before
         return  playerBody;
     }
 
+    /**
+     * moves the ball and the players position
+     * @param p Point object
+     */
     public void moveTo(Point p){
         ballPoint.setLocation(p);
         playerBody.setLocation(ballPoint.x - (int)playerBody.getWidth()/2,ballPoint.y);

@@ -27,12 +27,14 @@ public class HistoryScreenView extends JFrame {
 	private JPanel contentPane;
 	public String scoreString;
 
+	/**
+	 * instantiate the History Frame to be viewed
+	 */
 	public HistoryScreenView() {
 		super();
-	
-		
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 650, 545);
+		setBounds(100, 100, 663, 549);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(224,139,62));
 		contentPane.setForeground(new Color(0, 0, 0));
@@ -54,23 +56,24 @@ public class HistoryScreenView extends JFrame {
 				owner.initialize();	
 			}
 		});
-		backButton.setBounds(276, 377, 99, 48);
+		backButton.setBounds(273, 385, 99, 48);
 		contentPane.add(backButton);
 		
 		JLabel title = new JLabel("History");
 		title.setHorizontalAlignment(SwingConstants.CENTER);
 		title.setFont(new Font("Georgia", Font.BOLD, 30));
-		title.setBounds(267, 51, 168, 35);
+		title.setBounds(235, 53, 168, 35);
 		contentPane.add(title);
 		
 		JLabel scoreText = new JLabel("\r\n");
+		scoreText.setHorizontalAlignment(SwingConstants.CENTER);
+		scoreText.setVerticalAlignment(SwingConstants.TOP);
 		HistoryScreenModel historymodel = new HistoryScreenModel();
-		scoreText.setText("<html>"+"<h1><u>Scores of Last 10 games </u></h1><<br/>" + historymodel.readScore(20) + "</html>");
+		scoreText.setText("<html>"+"<h1><u>Scores of Last 10 games </u></h1>" + historymodel.readScore(10) + "</html>");
 		scoreText.setBackground(new Color(255, 255, 255));
 		scoreText.setForeground(new Color(255, 235, 205));
-		scoreText.setHorizontalAlignment(SwingConstants.CENTER);
 		scoreText.setFont(new Font("Candara", Font.BOLD, 17));
-		scoreText.setBounds(86, 104, 471, 262);
+		scoreText.setBounds(65, 80, 518, 316);
 		contentPane.add(scoreText);
 		
 		
@@ -78,10 +81,13 @@ public class HistoryScreenView extends JFrame {
 		backgroundImage.setToolTipText("");
 		Image img = new ImageIcon(this.getClass().getResource("/info-bg-pic3.png")).getImage();
 		backgroundImage.setIcon(new ImageIcon(img));
-		backgroundImage.setBounds(0, 0,650, 500);
+		backgroundImage.setBounds(0, 0,648, 500);
 		contentPane.add(backgroundImage);
 	}
 	
+	/**
+	 * initializes the frame to set
+	 */
 	public void initialize() {
 		
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -90,7 +96,9 @@ public class HistoryScreenView extends JFrame {
       
 	}
 	
-	
+	/**
+	 * relocates the screen
+	 */
     private void autoLocate(){
         Dimension size = Toolkit.getDefaultToolkit().getScreenSize();
         int x = (size.width - this.getWidth()) / 2;
@@ -98,7 +106,9 @@ public class HistoryScreenView extends JFrame {
         this.setLocation(x,y);
     }
     
-    
+    /**
+     * disposes the current frame to initialize HomeBoard
+     */
     public void enableHomeBoard(){
         this.dispose();
 

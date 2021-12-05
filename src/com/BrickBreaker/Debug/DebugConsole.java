@@ -37,7 +37,12 @@ public class DebugConsole extends JDialog implements WindowListener{
     private GameBoard gameBoard;
     private Wall wall;
 
-
+    /**
+     * Instantiate a DebugConsole object
+     * @param owner JFrame object
+     * @param wall Wall object
+     * @param gameBoard GmeBoard object
+     */
     public DebugConsole(JFrame owner,Wall wall,GameBoard gameBoard){
 
         this.wall = wall;
@@ -51,7 +56,10 @@ public class DebugConsole extends JDialog implements WindowListener{
 
         this.pack();
     }
-
+    
+    /**
+     * initializes the DebugConsole frame
+     */
     private void initialize(){
         this.setModal(true);
         this.setTitle(TITLE);
@@ -60,47 +68,69 @@ public class DebugConsole extends JDialog implements WindowListener{
         this.addWindowListener(this);
         this.setFocusable(true);
     }
-
-
+   
+    /**
+     * sets up the DebugConsole location
+     */
     private void setLocation(){
         int x = ((owner.getWidth() - this.getWidth()) / 2) + owner.getX();
         int y = ((owner.getHeight() - this.getHeight()) / 2) + owner.getY();
         this.setLocation(x,y);
     }
 
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void windowOpened(WindowEvent windowEvent) {
 
     }
-
+    
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void windowClosing(WindowEvent windowEvent) {
         gameBoard.repaint();
     }
-
+    
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void windowClosed(WindowEvent windowEvent) {
 
     }
-
+    
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void windowIconified(WindowEvent windowEvent) {
 
     }
-
+    
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void windowDeiconified(WindowEvent windowEvent) {
 
     }
-
+    
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void windowActivated(WindowEvent windowEvent) {
         setLocation();
         Ball b = wall.getBall();
         debugPanel.setValues(b.getSpeedX(),b.getSpeedY());
     }
-
+    
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void windowDeactivated(WindowEvent windowEvent) {
 

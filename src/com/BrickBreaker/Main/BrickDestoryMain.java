@@ -22,8 +22,12 @@ import java.awt.*;
 import com.BrickBreaker.Frames.GameFrame;
 
 
-public class GraphicsMain {
+public class BrickDestoryMain {
 
+	/**
+	 * initializes the game
+	 * @param args
+	 */
     public static void main(String[] args){
         EventQueue.invokeLater(() -> new GameFrame().initialize());
     }

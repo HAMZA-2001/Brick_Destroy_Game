@@ -18,8 +18,11 @@ import javax.swing.JPanel;
 public class HistoryScreenModel {
 
     private String txt1; //txt to be written
-
-
+    
+    /**
+     * gets the user score upon finishing the game and writes the score set by the user into a text file 
+     * @param score game score
+     */
     public void writeScore(int score){
 
         JFrame frame = new JFrame("User Name Storing");
@@ -71,7 +74,12 @@ public class HistoryScreenModel {
         frame.getContentPane().add(panel, BorderLayout.CENTER);
 
     }
-
+    
+    /**
+     * reads the score from the history.txt file and sets it in displayable format for the jLabels to render it in 
+     * @param lines number of lines to be read from the history.txt file
+     * @return the required text read from history.txt in string 
+     */
     public String readScore(int lines){
         int readLines = 0;
         File historyFile = new File("history.txt");
@@ -92,7 +100,7 @@ public class HistoryScreenModel {
                 
                 // break when end of the line
                 if(c == '\n'){
-                    builder.append(">/rb<"); //writing reverse of </br> because file is being read back words and then reverced
+                    builder.append(">/rb<"); //writing reverse of </br> because file is being read back words and then revered
                     readLines++;
                     if(readLines == lines)
                         break;

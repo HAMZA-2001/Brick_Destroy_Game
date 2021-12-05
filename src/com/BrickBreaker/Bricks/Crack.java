@@ -5,9 +5,6 @@ import java.awt.Rectangle;
 import java.awt.geom.GeneralPath;
 import java.awt.geom.Point2D;
 
-
-
-    
     
     public class Crack{
     	
@@ -38,13 +35,13 @@ import java.awt.geom.Point2D;
 
         private int crackDepth;
         private int steps;
-
+        Brick brick;
+        
         /**
          * Instantiate a crack object 
          * @param crackDepth depth of crack
          * @param steps number of steps
          */
-        Brick brick;
         public Crack(int crackDepth, int steps, Brick brick){
 
             crack = new GeneralPath();
@@ -152,19 +149,37 @@ import java.awt.geom.Point2D;
             path.lineTo(end.x,end.y);
             crack.append(path,true);
         }
-
+        
+        /**
+         * random bound
+         * @param bound bound number
+         * @return random bound in brick
+         */
         private int randomInBounds(int bound){
             int n = (bound * 2) + 1;
             return Brick.rnd.nextInt(n) - bound;
         }
-
+        
+        /**
+         * 
+         * @param i
+         * @param steps steps taken by the ball
+         * @param divisions dividend number
+         * @return if the object is in middle
+         */
         private boolean inMiddle(int i,int steps,int divisions){
             int low = (steps / divisions);
             int up = low * (divisions - 1);
 
             return  (i > low) && (i < up);
         }
-
+        
+        /**
+         * 
+         * @param bound limiting value
+         * @param probability jump probability
+         * @return random number in the bound
+         */
         private int jumps(int bound,double probability){
 
             if(Brick.rnd.nextDouble() > probability)
@@ -174,7 +189,13 @@ import java.awt.geom.Point2D;
         }
         
         // Changed the parameter name from and to to start and end
-
+        /**
+         * makes a random Point in given coordinates
+         * @param start staring point
+         * @param end end point
+         * @param direction direction of the point
+         * @return random point
+         */
         private Point makeRandomPoint(Point start,Point end, int direction){
 
             Point out = new Point();
