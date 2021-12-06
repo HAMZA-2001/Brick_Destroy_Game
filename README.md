@@ -1,12 +1,6 @@
-# Brick_Destroy
-This is a simple arcace video game.
-Player's goal is to destroy a wall with a small ball.
-The game has  very simple commmand:
-SPACE start/pause the game
-A move left the player
-D move rigth the player
-ESC enter/exit pause menu
-ALT+SHITF+F1 open console
-the game automatically pause if the frame loses focus
+# Hamza Rizzwan_20297534_Brick Destroy
 
-Enjoy ;-)
+Refactoring Activities
+
+This project's classes were first and foremost organised into multiple packages in order to avid cluttering. By taking encapsulation into consideration
+each and every variables/data was passed to from one class to anther via setter/getters throughout the entire project making this project well intact and encapsulated. Many variable and class names were changed in order to enhance users readability such as the main class previoously named as GraphicsMain was changed into BrickDestroyMain and previously used variables such as Brick Face was changed in BrickBody and data regarding the menu button was changed into exit button as it was performing the action of exiting thee system in HomeMeenu class
