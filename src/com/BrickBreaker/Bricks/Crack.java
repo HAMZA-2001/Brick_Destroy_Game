@@ -8,17 +8,6 @@ import java.awt.geom.Point2D;
     
     public class Crack{
     	
-
-//    public static final int MIN_CRACK = 1;
-//    public static final int DEF_CRACK_DEPTH = 1;
-//    public static final int DEF_STEPS = 35;
-//
-//
-//    public static final int UP_IMPACT = 100;
-//    public static final int DOWN_IMPACT = 200;
-//    public static final int LEFT_IMPACT = 300;
-//    public static final int RIGHT_IMPACT = 400;
-
         private static final int CRACK_SECTIONS = 3;
         private static final double JUMP_PROBABILITY = 0.7;
 

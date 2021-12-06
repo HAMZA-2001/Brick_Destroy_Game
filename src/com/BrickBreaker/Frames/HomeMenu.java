@@ -71,8 +71,7 @@ public class HomeMenu extends JComponent implements MouseListener, MouseMotionLi
     private boolean exitClicked; // was menuClicked before
     private boolean infoClicked;
     private boolean historyClicked;
-//    Image background = new ImageIcon("wallPic2.jpg").getImage();
-//    BufferedImage image = new  BufferedImage(area.width, area.height,BufferedImage.TYPE_INT_ARGB);
+
     
     /**
      * Instantiate the home menu object
