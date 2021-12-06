@@ -17,7 +17,6 @@
  */
 package com.BrickBreaker.Frames;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 
 
@@ -27,10 +26,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.applet.*;
+
 public class HomeMenu extends JComponent implements MouseListener, MouseMotionListener {
 
     private static final String GREETINGS = "Welcome to:";
