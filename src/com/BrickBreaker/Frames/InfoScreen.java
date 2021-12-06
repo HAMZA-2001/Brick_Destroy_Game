@@ -33,7 +33,7 @@ public class InfoScreen extends JFrame {
 	
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 650, 545);
+		setBounds(100, 100, 658, 538);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(224,139,62));
 		contentPane.setForeground(new Color(0, 0, 0));
@@ -54,13 +54,13 @@ public class InfoScreen extends JFrame {
 				owner.initialize();	
 			}
 		});
-		backButton.setBounds(286, 353, 99, 48);
+		backButton.setBounds(285, 380, 99, 48);
 		contentPane.add(backButton);
 		
 		JLabel Title = new JLabel("How To Play?");
 		Title.setHorizontalAlignment(SwingConstants.CENTER);
 		Title.setFont(new Font("Georgia", Font.BOLD, 30));
-		Title.setBounds(211, 51, 224, 57);
+		Title.setBounds(210, 50, 236, 64);
 		contentPane.add(Title);
 		
 		JLabel infoText = new JLabel("<html><body style='text-align: center' >In this game, the player moves a PADDLE from side-to-side to hit a BALL.The game's objective is to eliminate all of the BRICKS at the top of the screen by hitting them with the BALL. But, if the ball hits the bottom ENCLOSURE,the player loses and the game ends! To win the game, all the \t\tBRICKS must be eliminated.</body></html>\r\n");
@@ -68,7 +68,7 @@ public class InfoScreen extends JFrame {
 		infoText.setForeground(new Color(255, 235, 205));
 		infoText.setHorizontalAlignment(SwingConstants.CENTER);
 		infoText.setFont(new Font("Candara", Font.BOLD, 17));
-		infoText.setBounds(86, 104, 471, 238);
+		infoText.setBounds(80, 108, 495, 238);
 		contentPane.add(infoText);
 		
 		
